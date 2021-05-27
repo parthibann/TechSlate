@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>TechSlate</title>
+  <meta charset="utf-8">
+  <meta name="author" content="Parthiban Nithyanantham">
+  <meta name="description" content="Access docker containers over the web browser.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="shortcut icon" type="image/ico" href="static/images/terminal.ico"/>
+  <link rel="stylesheet" type="text/css" href="static/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="static/css/jquery.dataTables.css"/>
+  <script src="static/js/jquery.min.js"></script>
+  <script src="static/js/popper.min.js"></script>
+  <script src="static/js/bootstrap.min.js"></script>
+  <script src="static/js/jquery.dataTables.min.js"></script>
+  <script type="text/javascript" language="javascript">
+		$(document).ready(function () {
+			$("#createDocker").submit(function(e) {
+				var form = $(this);
+				var url = form.attr('action');
+				$.ajax({
+					method: "POST",
+					url: url,
+					data: form.serialize(),
+					success: function(data) {
+						alert(data.message);
+					}
+				});
+				e.preventDefault();
+			});
+		});
+	</script>
+</head>
+<body>
+<br>
+
+<div class="container">
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+    <li class="nav-item">
+      <a class="nav-link active" data-toggle="tab" href="#home">Home</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="tab" href="#menu1">Create Container</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="tab" href="#menu2" onclick="list_all_containers()">Containers</a>
+    </li>
+	  <li class="nav-item">
+      <a class="nav-link" data-toggle="tab" href="#menu3">Documentation</a>
+    </li>
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <!-- Home Menu -->
+    <div id="home" class="container tab-pane active"><br>
+      <h3>TechSlate</h3>
+      <p>TechSlate provides web interface for starting and stopping docker containers.
+         TechSlate has custom docker images which allows user to access docker terminals via browser.
+         TechSlate also allows user to open ports, assign labels to the containers they launch. The user has
+         the flexibility to continue working on their projects using the web-terminals.<br>
+        <b style="color:blue;">Architecture diagram: </b><br>
+        <img src="static/images/techslate_architecture.png" alt="TechSlate"><br>
+        <ol>
+          <li>Client request TechSlate for start / stop of docker containers.</li>
+          <li>TechSlate assigns nodePort to ssh port of the docker container while launching the containers.</li>
+          <li>Using the nodePort, client can directly interact with docker containers using web-terminals.</li>
+        </ol>
+        <b style="color:blue;">Use cases:</b>
+        <ul>
+          <li>Application development - Since the docker containers already contain the necessary softwares (programming languages) they can start using it for development purpose.</li>
+          <li>Small training institutes where they teach specific programming languages.</li>
+          <li>Online training portals - if they extent this application with public cloud like GCE, AES etc.. then it is pretty much capable of doing it.</li>
+          <li>Online examination - since every user gets an unique docker container and the data is not saved over the containers, this will be useful.</li>
+        </ul>
+      </p>
+    </div>
+    <!-- Create Container Menu -->
+    <div id="menu1" class="container tab-pane fade"><br>
+      <h3>Create docker container</h3>
+      <form class="form-horizontal" id="createDocker" action="/v1/docker/start" method="post">
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="image_tag">Docker image:</label>
+            <div class="col-sm-3">
+                <select id="image_tag" name="image_tag" class="form-control">
+                    <option value="techslate/python:v1">Python</option>
+                    <option value="techslate/nodejs12:v1">Nodejs</option>
+                    <option value="techslate/go:v1">Go</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="port">Port:</label>
+                <div class="col-sm-3">
+                    <input type="text" class="form-control" id="port" name="port" placeholder="Enter port">
+                </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="label">Label:</label>
+            <div class="col-sm-3">
+                <input type="text" class="form-control" id="label" name="label" placeholder="Enter label">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-primary">Create Container</button>
+            </div>
+        </div>
+      </form>
+    </div>
+    <!-- Container Actions Menu -->
+    <div id="menu2" class="container tab-pane fade"><br>
+      <h3>Containers</h3>
+      <table class="table" id="containersTable">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Id</th>
+            <th>Port</th>
+            <th>Label</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+    </div>
+    <!-- Documentation Menu -->
+	<div id="menu3" class="container tab-pane fade"><br>
+    <p>
+    <b><h4>Docker Images:</h4></b>
+    <li><b>Python:</b> Python 2.7.5 and Python 3.6.8 versions are available as part of this docker image. </li>
+    <li><b>Nodejs12:</b> Nodejs v12.22.1 and npm 7.11.2 version are available as part of the docker image. </li>
+    <li><b>Go:</b> Golang 1.16 version available as part of this docker image. </li><br>
+    <b>NOTE:</b> All the above images also contains 'git', 'wget' and other necessary packages for development. To include docker images, please reach out to n.parthibann@gmail.com
+    <hr><b><h4>Pre-requisite:</h4></b>
+      <li>OS: Linux</li>
+      <li>Python3</li>
+      <li>Docker</li>
+    <hr><b><h4>Installation instructions:</h4></b>
+      <ol>
+        <li>Clone the repository and move inside the application directory.</li>
+        <li>Run './install.sh' script which will pull the required docker images and then install the required python packages.</li>
+        <li>Run the command 'python3 bin/techslate.py' and then open http://localhost:5555 in browser.</li>
+      </ol>
+
+    <hr><b><h4>API Details:</h4></b>
+    <div id="apidetails">
+      <h6>1. LIST IMAGES </h6>
+      <code>GET: /v1/images</code>
+      <textarea readonly rows="25">Sample Response:
+      {
+        "images": [
+            "python",
+            "nodejs",
+            "go"
+        ],
+        "image_details": {
+            "python": {
+                "version": "3",
+                "image_tag": "techslate/python:v1",
+                "image_id": "9e25367b8f1f"
+            },
+            "nodejs": {
+                "version": "12",
+                "image_tag": "techslate/nodejs12:v1",
+                "image_id": "49cce91238ad"
+            },
+            "go": {
+                "version": "1.16",
+                "image_tag": "techslate/go:v1",
+                "image_id": "6efff097a868"
+            }
+        }
+      }</textarea>
+      <h6>2. START CONTAINER </h6>
+      <code>POST: /v1/docker/start</code>
+      <textarea readonly rows="9"> REQUEST BODY:
+      {
+        "image_tag": "techslate/python:v1"
+      }
+      SAMPLE RESPONSE:
+      {
+      "message": "Request taken for processing. Please wait for 10 - 30 seconds for the contatiner to come to ready state."
+      }
+      </textarea>
+      <h6>3. LIST CONTAINERS </h6>
+      <code>GET: /v1/containers</code>
+      <textarea readonly rows="12"> SAMPLE RESPONSE:
+      [
+        {
+            "name": "laughing_wescoff",
+            "id": "ebb0000477ee",
+            "url": "http://10.78.216.11:44441",
+            "labels": {
+                "image": "techslate"
+            }
+        }
+      ]
+      </textarea>
+      <h6>4. STOP CONTAINERS </h6>
+      <code>GET: /v1/docker/stop/:containerID</code>
+      <textarea readonly rows="5"> SAMPLE RESPONSE:
+      {
+        "message": "Request taken for processing."
+      }
+      </textarea><hr>
+    </div>
+    </p>
+    </div>
+  </div>
+</div>
+<script type="text/javascript" language="javascript">
+    function list_all_containers() {
+        var table = $('#containersTable').DataTable({
+            "iDisplayLength": 25,
+            "bDestroy": true
+        })
+
+        $.get('/v1/containers', {}, function(data) {
+        table.clear();
+
+        data.forEach(function(item) {
+            table.row.add([item.name, item.id, item.port, item.label, '<a class="btn btn-primary" role="button" target="_blank" href="' + item.url + '">SSH</a>&nbsp;<input type="button" class="btn btn-warning" id="' + item.id + '" value="STOP" onclick="stop_docker_container(this.id)"></input>'])
+        })
+        table.draw()
+        })
+    }
+</script>
+<script type="text/javascript" language="javascript">
+    function stop_docker_container(container_id) {
+        $.ajax({
+            method: "GET",
+            url: "/v1/docker/stop/" + container_id,
+            data: {},
+            success: function(data) {
+                list_all_containers();
+                alert(data.message);
+            }
+        });
+
+    }
+</script>
+</body>
+</html>
+<style>
+h3, h4 {
+  color: #034c8f;
+}
+#menu3 {
+  color: #777A7A
+}
+textarea{
+    background: none;
+    border: none;
+    resize:none;
+    outline:none;
+    width:100%;
+}
+</style>

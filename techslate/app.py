@@ -20,3 +20,9 @@ api.add_resource(Docker, '/v1/<resource>', '/v1/docker/<action>', '/v1/docker/st
 @app.route('/')
 def homepage():
     return render_template('index.html')
+
+
+@app.errorhandler(404)
+def page_not_found(e):
+    return "404 - Not Found. The requested resource is not available on the server."
+

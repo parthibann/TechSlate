@@ -57,8 +57,9 @@ class DockerActions(object):
             else:
                 container_port = port[eachPort][0]['HostPort'] + ": " + eachPort
         details['port'] = container_port
-        host_port = tcp_4200_port_details[0]['HostPort']
-        details['url'] = 'http://' + host_ip + ':' + str(host_port)
+        ssh_port = tcp_4200_port_details[0]['HostPort']
+        details['url'] = 'http://' + host_ip + ':' + str(ssh_port)
+        details['ssh_port'] = ssh_port
         all_labels = container.labels
         if all_labels.get('user_label'):
             details['label'] = container.labels.get('user_label')
@@ -188,3 +189,4 @@ def timed_job():
 
 
 sched.start()
+

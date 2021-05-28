@@ -10,7 +10,6 @@
   <link rel="stylesheet" type="text/css" href="static/css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="static/css/jquery.dataTables.css"/>
   <script src="static/js/jquery.min.js"></script>
-  <script src="static/js/popper.min.js"></script>
   <script src="static/js/bootstrap.min.js"></script>
   <script src="static/js/jquery.dataTables.min.js"></script>
   <script type="text/javascript" language="javascript">
@@ -222,7 +221,7 @@
         table.clear();
 
         data.forEach(function(item) {
-            table.row.add([item.name, item.id, item.port, item.label, '<a class="btn btn-primary" role="button" target="_blank" href="' + item.url + '">SSH</a>&nbsp;<input type="button" class="btn btn-warning" id="' + item.id + '" value="STOP" onclick="stop_docker_container(this.id)"></input>'])
+            table.row.add([item.name, item.id, item.port, item.label, '<a class="btn btn-primary" role="button" target="_blank" href=http://' + window.location.hostname + ':' + item.ssh_port + '>SSH</a>&nbsp;<input type="button" class="btn btn-warning" id="' + item.id + '" value="STOP" onclick="stop_docker_container(this.id)"></input>'])
         })
         table.draw()
         })
@@ -259,3 +258,4 @@ textarea{
     width:100%;
 }
 </style>
+

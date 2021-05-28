@@ -191,10 +191,9 @@
         {
             "name": "laughing_wescoff",
             "id": "ebb0000477ee",
-            "url": "http://10.78.216.11:44441",
-            "labels": {
-                "image": "techslate"
-            }
+            "port": "27439: 3331/tcp",
+            "web_terminal_port": "26654",
+            "label": "techslate"
         }
       ]
       </textarea>
@@ -221,7 +220,7 @@
         table.clear();
 
         data.forEach(function(item) {
-            table.row.add([item.name, item.id, item.port, item.label, '<a class="btn btn-primary" role="button" target="_blank" href=http://' + window.location.hostname + ':' + item.ssh_port + '>SSH</a>&nbsp;<input type="button" class="btn btn-warning" id="' + item.id + '" value="STOP" onclick="stop_docker_container(this.id)"></input>'])
+            table.row.add([item.name, item.id, item.port, item.label, '<a class="btn btn-primary" role="button" target="_blank" href=http://' + window.location.hostname + ':' + item.web_terminal_port + '>SSH</a>&nbsp;<input type="button" class="btn btn-warning" id="' + item.id + '" value="STOP" onclick="stop_docker_container(this.id)"></input>'])
         })
         table.draw()
         })

@@ -17,7 +17,6 @@ class DockerActions(object):
     def __init__(self):
         self.docker_client = docker.from_env()
         self.current_file_path = os.path.dirname(__file__)
-        self.config_path = os.path.join(self.current_file_path, '../../config/')
         self.tasks_file_path = os.path.join(self.current_file_path, 'tasks.json')
 
     def list_techslate_images(self):
@@ -43,8 +42,6 @@ class DockerActions(object):
             raise Exception(err)
 
     def form_container_data(self, container):
-        config = json.load(open(os.path.join(self.config_path, 'config.json')))
-        host_ip = config.get('docker_host')
         details = dict()
         details['name'] = container.name
         details['id'] = container.id[0:12]
@@ -57,9 +54,8 @@ class DockerActions(object):
             else:
                 container_port = port[eachPort][0]['HostPort'] + ": " + eachPort
         details['port'] = container_port
-        ssh_port = tcp_4200_port_details[0]['HostPort']
-        details['url'] = 'http://' + host_ip + ':' + str(ssh_port)
-        details['ssh_port'] = ssh_port
+        web_terminal_port = tcp_4200_port_details[0]['HostPort']
+        details['web_terminal_port'] = web_terminal_port
         all_labels = container.labels
         if all_labels.get('user_label'):
             details['label'] = container.labels.get('user_label')

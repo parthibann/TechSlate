@@ -132,7 +132,7 @@
     <li><b>Python:</b> Python 2.7.5 and Python 3.6.8 versions are available as part of this docker image. </li>
     <li><b>Nodejs12:</b> Nodejs v12.22.1 and npm 7.11.2 version are available as part of the docker image. </li>
     <li><b>Go:</b> Golang 1.16 version available as part of this docker image. </li><br>
-    <b>NOTE:</b> All the above images also contains 'git', 'wget' and other necessary packages for development. To include docker images, please reach out to n.parthibann@gmail.com
+    <b>NOTE:</b> All the above images also contains 'git', 'wget' and other necessary packages for development. By default you will login as 'techslate' user and you can switch to root user using the command 'sudo su'. To include docker images, please reach out to n.parthibann@gmail.com
     <hr><b><h4>Pre-requisite:</h4></b>
       <li>OS: Linux</li>
       <li>Python3</li>
@@ -175,9 +175,11 @@
       }</textarea>
       <h6>2. START CONTAINER </h6>
       <code>POST: /v1/docker/start</code>
-      <textarea readonly rows="9"> REQUEST BODY:
+      <textarea readonly rows="11"> REQUEST BODY:
       {
-        "image_tag": "techslate/python:v1"
+        "image_tag": "techslate/python:v1",
+        "port": "2245",
+        "label": "hello"
       }
       SAMPLE RESPONSE:
       {

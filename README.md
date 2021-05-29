@@ -29,3 +29,6 @@ TechSlate provides web interface for starting and stopping docker containers. Te
 3. Run the command 'python3 bin/techslate.py' and then open http://localhost:5555 in browser.
 
 
+
+
+Please find the API details **[here](https://github.com/parthibann/TechSlate/blob/main/documents/apidetails.md)**.

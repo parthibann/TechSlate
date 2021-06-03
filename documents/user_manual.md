@@ -2,7 +2,7 @@
 
 TechSlate home page contains information about the architecture of the application and the use cases of it.
 
-![TechSlate Home](documents/TechSlate_tab1.png)
+![TechSlate Home](TechSlate_tab1.png)
 
 ### Create Container page
 
@@ -14,7 +14,7 @@ Port: '' (optional value, application port that needs to be exposed outside)
 
 Label: '' (optional value, used for tracking purpose)
 
-![TechSlate Home](documents/TechSlate_tab2.png)
+![TechSlate Home](TechSlate_tab2.png)
 
 ### Containers page
 
@@ -34,14 +34,14 @@ Action:
 1. SSH - To access the terminal of the container
 2. STOP - To stop the container
 
-![TechSlate Home](documents/TechSlate_tab3.png)
+![TechSlate Home](TechSlate_tab3.png)
 
 ##### SSH access to the docker terminal in browser new tab
 
-![TechSlate Home](documents/TechSlate-terminal.png)
+![TechSlate Home](TechSlate-terminal.png)
 
 ### Documentation page
 
-![TechSlate Home](documents/TechSlate_tab4.png)
+![TechSlate Home](TechSlate_tab4.png)
 
 

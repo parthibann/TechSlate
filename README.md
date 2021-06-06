@@ -30,5 +30,8 @@ TechSlate provides web interface for starting and stopping docker containers. Te
 
 
 
+### Documents:
 
-Please find the API details **[here](https://github.com/parthibann/TechSlate/blob/main/documents/apidetails.md)**.
+- [Api details](https://github.com/parthibann/TechSlate/blob/main/documents/apidetails.md)
+
+- [User manual](https://github.com/parthibann/TechSlate/blob/main/documents/user_manual.md) 
